@@ -17,13 +17,20 @@ function debounce(func, wait = 20, immediate = true) {
 const sliderImages = document.querySelectorAll('.slide-in');
 
 function checkSlide(e) {
-    sliderImages.forEach(slideImage => {
+    sliderImages.forEach(sliderImage => {
         // how far is window being scrolled down from bottom of the viewport?
         const slideInAt = (window.scrollY + window.innerHeight) - sliderImage.height / 2;
         // where is bottom of image?
         const imageBottom = sliderImage.offsetTop + sliderImage.height;
-
-    })
+        // is the image being half shown within current viewport?
+        const isHalfShown = slideInAt > sliderImage.offsetTop;
+        const isNotScrolledPast = window.scrollY < imageBottom;
+        if (isHalfShown && isNotScrolledPast) {
+            sliderImage.classList.add('active');
+        } else {
+            sliderImage.classList.remove('active');
+        }
+    });
 }
 
 window.addEventListener('scroll', debounce(checkSlide, 500));
