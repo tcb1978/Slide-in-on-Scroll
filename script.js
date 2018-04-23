@@ -17,7 +17,13 @@ function debounce(func, wait = 20, immediate = true) {
 const sliderImages = document.querySelectorAll('.slide-in');
 
 function checkSlide(e) {
-    console.log(e);
+    sliderImages.forEach(slideImage => {
+        // how far is window being scrolled down from bottom of the viewport?
+        const slideInAt = (window.scrollY + window.innerHeight) - sliderImage.height / 2;
+        // where is bottom of image?
+        const imageBottom = sliderImage.offsetTop + sliderImage.height;
+
+    })
 }
 
 window.addEventListener('scroll', debounce(checkSlide, 500));
